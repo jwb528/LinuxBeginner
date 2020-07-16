@@ -18,6 +18,7 @@ read_dir(){
                     then
                         mkdir -p $PDF_PATH/$1
                     fi
+                    echo "||||||||NOW CONVERTING"$1/$file"|||||||||||"
                     pandoc $GITHUB_WORKSPACE/$1/$file -o $PDF_PATH/$1/${file//'.md'/'.pdf'} --pdf-engine=xelatex -V mainfont='PingFang SC' --template=$GITHUB_WORKSPACE/scripts/template.tex
                 fi
             else
