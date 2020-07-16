@@ -1,35 +1,33 @@
 #!/bin/bash
-# author:菜鸟教程
-# url:www.runoob.com
-#GITHUB_WORKSPACE=/home/jwwwb/test
+sudo apt-get install pandoc #安装pandoc
+wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh #安装TinyTex
+export PATH=$PATH:$HOME/bin #将Tex相关可执行文件添加到PATH
+#安装其他一些必要的Tex包
+tlmgr install unicode-math filehook xecjk xltxtra realscripts fancyhdr lastpage ctex ms cjk ulem environ trimspaces zhnumber collection-fontsrecommended
+#遍历repo下的文件，将所有md文件转换到$GITHUB_WORKSPACE/PDFs路径下变成pdf文件
 PDF_PATH=$GITHUB_WORKSPACE/PDFs
-read_dir(){
-    for file in `ls $GITHUB_WORKSPACE/$1`       #注意此处这是两个反引号，表示运行系统命令
+trave_conv(){
+    for file in `ls $GITHUB_WORKSPACE/$1`
     do
         if [ $file != PDFs ]
         then
-            if [ -f $GITHUB_WORKSPACE/$1/$file ]  #注意此处之间一定要加上空格，否则会报错
+            if [ -f $GITHUB_WORKSPACE/$1/$file ]
             then
-                #echo $GITHUB_WORKSPACE/$1/$file   #在此处处理文件即可
-                #cp -r $GITHUB_WORKSPACE/$1/$file $PDF_PATH/$1/$file
                 if [[ $file =~ '.md' ]]
                 then
                     if [ ! -d $PDF_PATH/$1 ]
                     then
                         mkdir -p $PDF_PATH/$1
                     fi
-                    echo "||||||||NOW CONVERTING"$1/$file"|||||||||||"
+                    echo "-----NOW CONVERTING"$1/$file"-----"
                     pandoc $GITHUB_WORKSPACE/$1/$file -o $PDF_PATH/$1/${file//'.md'/'.pdf'} --pdf-engine=xelatex -V mainfont='PingFang SC' --template=$GITHUB_WORKSPACE/scripts/template.tex
                 fi
             else
-                #mkdir -p $PDF_PATH/$1/$file
                 read_dir $1/$file
             fi
         fi
     done
 }   
-#读取第一个参数
 rm -rf $PDF_PATH
 mkdir -p $PDF_PATH
-read_dir /
-
+trave_conv /
