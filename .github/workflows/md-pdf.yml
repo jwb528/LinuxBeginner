@@ -1,7 +1,7 @@
 name: action-test
 on:
   push:
-    branches: [master]
+    branches: [master, md-pdf]
   pull_request:
     branches: [master]
 defaults:
