@@ -23,7 +23,7 @@ trave_conv(){
                     pandoc $GITHUB_WORKSPACE/$1/$file -o $PDF_PATH/$1/${file//'.md'/'.pdf'} --pdf-engine=xelatex -V mainfont='PingFang SC' --template=$GITHUB_WORKSPACE/scripts/template.tex
                 fi
             else
-                read_dir $1/$file
+                trave_conv $1/$file
             fi
         fi
     done
