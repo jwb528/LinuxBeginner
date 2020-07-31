@@ -65,7 +65,7 @@ xltxtra
 realscripts
 fancyhdr
 lastpage
-cte
+ctex
 ms
 cjk
 ulem
