@@ -3,7 +3,7 @@ sudo apt-get install pandoc                                        #安装pandoc
 wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh #安装TinyTex
 export PATH=$PATH:$HOME/bin                                        #将Tex相关可执行文件添加到PATH
 #安装其他一些必要的Tex包
-tlmgr install unicode-math filehook xecjk xltxtra realscripts fancyhdr lastpage ctex ms cjk ulem environ trimspaces zhnumber collection-fontsrecommended
+#tlmgr install unicode-math filehook xecjk xltxtra realscripts fancyhdr lastpage ctex ms cjk ulem environ trimspaces zhnumber collection-fontsrecommended
 #遍历repo下的文件，将所有md文件转换到$GITHUB_WORKSPACE/PDFs路径下变成pdf文件
 DOC_PATH=$GITHUB_WORKSPACE/docs
 PDF_PATH=$GITHUB_WORKSPACE/pdfs
