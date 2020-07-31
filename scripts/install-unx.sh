@@ -20,6 +20,7 @@ mv texlive/* $TEXDIR
 rm -r texlive
 
 #$TEXDIR/bin/*/tlmgr install $(download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ')
+echo "---------install pkgs!!!!!!----------"
 cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' '
 $TEXDIR/bin/*/tlmgr install $(tr $GITHUB_WORKSPACE/scripts/pkgs-custom.txt '\n' ' ')
 
