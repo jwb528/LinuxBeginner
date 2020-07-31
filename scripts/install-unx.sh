@@ -12,7 +12,7 @@ else
   alias download='wget -qO-'
 fi
 
-download https://yihui.org/gh/tinytex/tools/install-base.sh | sh -s - "$@"
+sh $GITHUB_WORKSPACE/scripts/install-base.sh -s - "$@"
 
 rm -rf $TEXDIR
 mkdir -p $TEXDIR
