@@ -19,11 +19,11 @@ mkdir -p $TEXDIR
 mv texlive/* $TEXDIR
 rm -r texlive
 
-#$TEXDIR/bin/*/tlmgr install $(download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ')
+$TEXDIR/bin/*/tlmgr install $(download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ')
 echo "---------install pkgs!!!!!!----------"
 #$TEXDIR/bin/*/tlmgr install $(tr $GITHUB_WORKSPACE/scripts/pkgs-custom.txt '\n' ' ')
 #cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' ' | $TEXDIR/bin/*/tlmgr install
-$TEXDIR/bin/*/tlmgr install $(cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' ')
+#$TEXDIR/bin/*/tlmgr install $(cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' ')
 
 if [ "$1" = '--admin' ]; then
   if [ "$2" != '--no-path' ]; then
