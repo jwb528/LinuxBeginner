@@ -1,4 +1,5 @@
 #!/bin/bash
+shopt -s opt_name
 sudo apt-get install pandoc                 #安装pandoc
 
 #安装TinyTex
@@ -53,9 +54,9 @@ cd texlive
 TEXLIVE_INSTALL_ENV_NOCHECK=true TEXLIVE_INSTALL_NO_WELCOME=true ../install-tl-*/install-tl -no-gui -profile=../tinytex.profile -repository $TLREPO
 rm -r ../install-tl-* ../tinytex.profile install-tl.log
 
-#alias tlmgr='bin/*/tlmgr'
+alias tlmgr='bin/*/tlmgr'
 
-bin/*/tlmgr option repository "$TLREPO"
+tlmgr option repository "$TLREPO"
 
 if [ "$3" != '' ]; then
   tlmgr option repository "$3"
@@ -65,7 +66,7 @@ if [ "$3" != '' ]; then
   # test if the repository is accessible; if not, set the default CTAN repo
   tlmgr update --list || ./tlmgr option repository ctan
 fi
-bin/*/tlmgr install latex-bin luatex xetex
+tlmgr install latex-bin luatex xetex
 
 cd ../
 rm -rf $TEXDIR
