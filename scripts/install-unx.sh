@@ -65,6 +65,7 @@ if [ "$3" != '' ]; then
 fi
 tlmgr install latex-bin luatex xetex
 
+cd ../
 rm -rf $TEXDIR
 mkdir -p $TEXDIR
 mv texlive/* $TEXDIR
