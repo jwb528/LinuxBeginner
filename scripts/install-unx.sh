@@ -46,9 +46,8 @@ fi
 tar -xzf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
 
-rm -rf $TEXDIR
-mkdir -p $TEXDIR
-cd $TEXDIR
+mkdir texlive
+cd texlive
 TEXLIVE_INSTALL_ENV_NOCHECK=true TEXLIVE_INSTALL_NO_WELCOME=true ../install-tl-*/install-tl -no-gui -profile=../tinytex.profile -repository $TLREPO
 rm -r ../install-tl-* ../tinytex.profile install-tl.log
 
@@ -66,10 +65,10 @@ if [ "$3" != '' ]; then
 fi
 tlmgr install latex-bin luatex xetex
 
-#rm -rf $TEXDIR
-#mkdir -p $TEXDIR
-#mv texlive/* $TEXDIR
-#rm -r texlive
+rm -rf $TEXDIR
+mkdir -p $TEXDIR
+mv texlive/* $TEXDIR
+rm -r texlive
 
 echo "---------install pkgs!!!!!!----------"
 #$TEXDIR/bin/*/tlmgr install $(download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ')
