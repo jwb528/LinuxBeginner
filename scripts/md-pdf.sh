@@ -55,7 +55,7 @@ rm -r ../install-tl-* ../tinytex.profile install-tl.log
 
 alias tlmgr='./bin/*/tlmgr'
 
-tlmgr option repository "$TLREPO"
+bin/*/tlmgr option repository "$TLREPO"
 
 if [ "$3" != '' ]; then
   tlmgr option repository "$3"
@@ -65,7 +65,7 @@ if [ "$3" != '' ]; then
   # test if the repository is accessible; if not, set the default CTAN repo
   tlmgr update --list || ./tlmgr option repository ctan
 fi
-tlmgr install latex-bin luatex xetex
+bin/*/tlmgr install latex-bin luatex xetex
 
 cd ../
 rm -rf $TEXDIR
@@ -89,7 +89,7 @@ else
   $TEXDIR/bin/*/tlmgr path add || true
 fi
 
-#export PATH=$PATH:$HOME/bin                 #将Tex相关可执行文件添加到PATH
+export PATH=$PATH:$HOME/bin                 #将Tex相关可执行文件添加到PATH
 
 #遍历repo下的文件，将所有md文件转换到$GITHUB_WORKSPACE/PDFs路径下变成pdf文件
 DOC_PATH=$GITHUB_WORKSPACE/docs
