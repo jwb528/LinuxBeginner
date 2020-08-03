@@ -1,5 +1,5 @@
 #!/bin/bash
-shopt -s opt_name
+shopt -s expand_aliases
 sudo apt-get install pandoc                 #安装pandoc
 
 #安装TinyTex
