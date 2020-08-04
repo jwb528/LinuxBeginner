@@ -4,7 +4,7 @@ sudo apt-get install pandoc #安装pandoc
 
 #安装TinyTex
 #设置安装路径，如果TMPDIR为空值，则等价于cd /tmp
-cd ${TMPDIR:-/tmp}
+cd "${TMPDIR:-/tmp}"
 
 #根据操作系统来设置安装路径和安装命令
 if [ $(uname) = 'Darwin' ]; then
@@ -20,11 +20,11 @@ rm -f install-tl-unx.tar.gz tinytex.profile
 echo "Downloading install-tl-unx.tar.gz to ${PWD} ..."
 TLREPO=${CTAN_REPO:-http://mirrors.ibiblio.org/CTAN/systems/texlive/tlnet}
 TLURL="${TLREPO}/install-tl-unx.tar.gz"
-cp $GITHUB_WORKSPACE/scripts/tinytex.profile ./
+cp "$GITHUB_WORKSPACE/scripts/tinytex.profile" ./
 if [ $(uname) = 'Darwin' ]; then
-    curl -LO $TLURL
+    curl -LO "$TLURL"
 else
-    wget $TLURL
+    wget "$TLURL"
     # ask `tlmgr path add` to add binaries to ~/bin instead of the default
     # /usr/local/bin unless this script is invoked with the argument '--admin'
     # (e.g., users want to make LaTeX binaries available system-wide), in which
@@ -34,7 +34,7 @@ else
         echo 'TEXMFHOME $HOME/.TinyTeX/texmf-home' >>tinytex.profile
         echo 'TEXMFVAR $HOME/.TinyTeX/texmf-var' >>tinytex.profile
     else
-        mkdir -p $HOME/bin
+        mkdir -p "$HOME/bin"
         echo "tlpdbopt_sys_bin ${HOME}/bin" >>tinytex.profile
     fi
 fi
@@ -51,7 +51,7 @@ rm install-tl-unx.tar.gz
 
 mkdir texlive
 cd texlive
-TEXLIVE_INSTALL_ENV_NOCHECK=true TEXLIVE_INSTALL_NO_WELCOME=true ../install-tl-*/install-tl -no-gui -profile=../tinytex.profile -repository $TLREPO
+TEXLIVE_INSTALL_ENV_NOCHECK=true TEXLIVE_INSTALL_NO_WELCOME=true ../install-tl-*/install-tl -no-gui -profile=../tinytex.profile -repository "$TLREPO"
 rm -r ../install-tl-* ../tinytex.profile install-tl.log
 
 alias tlmgr='./bin/*/tlmgr'
@@ -69,9 +69,9 @@ fi
 tlmgr install latex-bin luatex xetex
 
 cd ../
-rm -rf $TEXDIR
-mkdir -p $TEXDIR
-mv texlive/* $TEXDIR
+rm -rf "$TEXDIR"
+mkdir -p "$TEXDIR"
+mv texlive/* "$TEXDIR"
 rm -r texlive
 
 echo "---------install pkgs!!!!!!----------"
@@ -79,15 +79,15 @@ echo "---------install pkgs!!!!!!----------"
 #download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ' | $TEXDIR/bin/*/tlmgr install
 #$TEXDIR/bin/*/tlmgr install $(cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' ')
 #cat $GITHUB_WORKSPACE/scripts/pkgs-custom.txt | tr '\n' ' ' | $TEXDIR/bin/*/tlmgr install
-$TEXDIR/bin/*/tlmgr install amsfonts amsmath atbegshi atveryend auxhook bibtex bigintcalc bitset booktabs dvips ec epstopdf-pkg etexcmds etoolbox euenc fancyvrb filehook float fontspec framed geometry gettitlestring grffile helvetic hycolor hyperref iftex inconsolata infwarerr intcalc kvdefinekeys kvoptions kvsetkeys latex-amsmath-dev latex-tools-dev latexmk letltxmacro lm-math ltxcmds lualatex-math mdwtools metafont mfware natbib pdfescape pdftexcmds refcount rerunfilecheck stringenc tex times tipa tools unicode-math uniquecounter url xcolor xkeyval xunicode zapfding unicode-math filehook xecjk xltxtra realscripts fancyhdr lastpage ctex ms cjk ulem environ trimspaces zhnumber collection-fontsrecommended
+"$TEXDIR/bin/*/tlmgr" install amsfonts amsmath atbegshi atveryend auxhook bibtex bigintcalc bitset booktabs dvips ec epstopdf-pkg etexcmds etoolbox euenc fancyvrb filehook float fontspec framed geometry gettitlestring grffile helvetic hycolor hyperref iftex inconsolata infwarerr intcalc kvdefinekeys kvoptions kvsetkeys latex-amsmath-dev latex-tools-dev latexmk letltxmacro lm-math ltxcmds lualatex-math mdwtools metafont mfware natbib pdfescape pdftexcmds refcount rerunfilecheck stringenc tex times tipa tools unicode-math uniquecounter url xcolor xkeyval xunicode zapfding unicode-math filehook xecjk xltxtra realscripts fancyhdr lastpage ctex ms cjk ulem environ trimspaces zhnumber collection-fontsrecommended
 
 #根据操作系统来添加path，虽然现在貌似是不work的状态
 if [ "$1" = '--admin' ]; then
     if [ "$2" != '--no-path' ]; then
-        sudo $TEXDIR/bin/*/tlmgr path add
+        sudo "$TEXDIR/bin/*/tlmgr" path add
     fi
 else
-    $TEXDIR/bin/*/tlmgr path add || true
+    "$TEXDIR/bin/*/tlmgr" path add || true
 fi
 
 export PATH=$PATH:$HOME/bin #将Tex相关可执行文件添加到PATH
